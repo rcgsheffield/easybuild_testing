@@ -1,0 +1,37 @@
+#%Module
+proc ModulesHelp { } {
+    puts stderr {
+
+Description
+===========
+ EasyBuild is a software build and installation framework that allows you to manage (scientific) software on High Performance Computing (HPC) systems in an efficient way.
+
+More information
+================
+ - Homepage: https://easybuild.readthedocs.io/en/latest/
+    }
+}
+
+module-whatis {Description: 
+ EasyBuild is a software build and installation framework that allows you to manage (scientific) software on High Performance Computing (HPC) systems in an efficient way.
+}
+module-whatis {Homepage: https://easybuild.readthedocs.io/en/latest/}
+
+set root /usr/local/community/rse/EasyBuild
+
+#prepend-path	PATH		$root/bin
+
+setenv       EBHOME                         "/usr/local/community/rse/EasyBuild"
+prepend-path PATH                           "$root/bin"
+prepend-path PYTHONPATH                     "$root/lib/python2.7/site-packages"
+setenv       EASYBUILD_MODULES_TOOL         "EnvironmentModulesC"
+setenv       EASYBUILD_MODULE_SYNTAX        "Tcl"
+setenv       EASYBUILD_LOGTOSTDOUT          "True"
+setenv       EASYBUILD_SOURCEPATH           "$root/src"
+setenv       EASYBUILD_INSTALLPATH_SOFTWARE "$root/software"
+setenv       EASYBUILD_INSTALLPATH_MODULES  "$root/modules/all"
+setenv       EASYBUILD_OPTARCH              "haswell"
+prepend-path EASYBUILD_ROBOT_PATHS          "$root/easybuild/easyconfigs"
+prepend-path EASYBUILD_ROBOT_PATHS          "$root/tuos/common/easyconfigs"
+prepend-path EASYBUILD_ROBOT_PATHS          "$root/tuos/$::env(SGE_CLUSTER_NAME)/easyconfigs"
+setenv       EASYBUILD_BUILDPATH            "$::env(TMPDIR)"
