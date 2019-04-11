@@ -31,7 +31,7 @@ ln -s /usr/local/community/rse/EasyBuild/tuos/easybuild-modulefile /usr/local/co
 Create directories for storing cluster-specific easyconfigs (build specs):
 
 ```sh
-mkdir -p "/usr/local/community/rse/EasyBuild/tuos/{common,${SGE_CLUSTER_NAME}}/easyconfigs"
+mkdir -p "/usr/local/community/rse/EasyBuild/tuos/easyconfigs/{common,${SGE_CLUSTER_NAME}}/"
 ```
 
 Switch from using centrally-installed modulefiles to EasyBuild modulefiles:
