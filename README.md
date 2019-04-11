@@ -113,4 +113,12 @@ First, we copy and customise `CUDA-9.2.88-GCC-7.3.0-2.30.eb` so that it adds `/s
 
 Next, copy and customise `OpenMPI-3.1.1-gcccuda-2018b.eb` so that it includes PSM2 (OPA) support. 
 
+**TODO**: finish and test
 
+easyconfigs=(
+    fosscuda-2018b.eb
+    #cuDNN-7.1.4.18-fosscuda-2018b.eb
+)
+for easyconfig in ${easyconfigs[@]}; do
+    eb --include-easyblocks=$EBHOME/tuos/perl.py --parallel=${NSLOTS-1} $easyconfig --robot 
+done
