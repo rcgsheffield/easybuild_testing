@@ -65,8 +65,9 @@ This provides specific versions of:
 
  - GCC
  - OpenMPI
- - OpenBLAS
+ - OpenBLAS (BLAS and LAPACK support)
  - FFTW
+ - ScaLAPACK
 
 ## Install other easyconfigs (packages) using the 'foss-2018b' toolchain (inc. dependencies)
 
