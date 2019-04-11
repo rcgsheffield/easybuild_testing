@@ -109,8 +109,4 @@ This automatically downloads and installs:
 
 ## Install fosscuda-2018b toolchain inc dependencies
 
-First, we copy and customise `CUDA-9.2.88-GCC-7.3.0-2.30.eb` so that it adds `/sbin` to the `path` (needed on Centos 7.x so that `ldconfig` can be found by all users).
-
-Next, copy and customise `OpenMPI-3.1.1-gcccuda-2018b.eb` so that it includes PSM2 (OPA) support. 
-
-
+TODO
