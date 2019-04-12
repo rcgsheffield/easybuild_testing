@@ -22,7 +22,7 @@ dependencies = [
     ('hwloc', '1.11.10')
 ]
 
-configopts = '--enable-shared --with-verbs --with-psm2'
+configopts = '--enable-shared --with-verbs --with-psm2 '
 configopts += '--enable-mpirun-prefix-by-default '  # suppress failure modes in relation to mpirun path
 configopts += '--with-hwloc=$EBROOTHWLOC '  # hwloc support
 

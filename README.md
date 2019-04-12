@@ -31,7 +31,7 @@ ln -s /usr/local/community/rse/EasyBuild/tuos/easybuild-modulefile /usr/local/co
 Create directories for storing cluster-specific easyconfigs (build specs):
 
 ```sh
-mkdir -p "/usr/local/community/rse/EasyBuild/tuos/{common,${SGE_CLUSTER_NAME}}/easyconfigs"
+mkdir -p "/usr/local/community/rse/EasyBuild/tuos/easyconfigs/{common,${SGE_CLUSTER_NAME}}/"
 ```
 
 Switch from using centrally-installed modulefiles to EasyBuild modulefiles:
@@ -65,8 +65,9 @@ This provides specific versions of:
 
  - GCC
  - OpenMPI
- - OpenBLAS
+ - OpenBLAS (BLAS and LAPACK support)
  - FFTW
+ - ScaLAPACK
 
 ## Install other easyconfigs (packages) using the 'foss-2018b' toolchain (inc. dependencies)
 
@@ -111,14 +112,25 @@ This automatically downloads and installs:
 
 First, we copy and customise `CUDA-9.2.88-GCC-7.3.0-2.30.eb` so that it adds `/sbin` to the `path` (needed on Centos 7.x so that `ldconfig` can be found by all users).
 
-Next, copy and customise `OpenMPI-3.1.1-gcccuda-2018b.eb` so that it includes PSM2 (OPA) support. 
+CUDA itself can be automatically downloaded by EasyBuild 
+but cuDNN is locked away in the NVIDIA Developers portal.
+Download `cudnn-9.2-linux-x64-v7.1.tgz` from that portal and 
+save the file in `$EBHOME/src/c/cuDNN/`.  
+The cuDNN easyconfig expects this file to have a slightly more precise name so we can create a symlink to satisfy that requirement:
 
-**TODO**: finish and test
+```sh
+ln -s $EBHOME/src/c/cuDNN/cudnn-9.2-linux-x64-v7.1{,4.18}.tgz
+```
 
+Thirdly, copy and customise `OpenMPI-3.1.1-gcccuda-2018b.eb` so that it includes PSM2 (OPA) support. 
+
+Finally, install the toolchain plus cuDNN with:
+
+```bash
 easyconfigs=(
     fosscuda-2018b.eb
-    #cuDNN-7.1.4.18-fosscuda-2018b.eb
+    cuDNN-7.1.4.18-fosscuda-2018b.eb
 )
 for easyconfig in ${easyconfigs[@]}; do
     eb --include-easyblocks=$EBHOME/tuos/perl.py --parallel=${NSLOTS-1} $easyconfig --robot 
-done
+```
